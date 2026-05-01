@@ -108,7 +108,7 @@ def fake_payment():
 @app.route('/download_demo')
 def download_demo():
     log_action("DEMO_APP_DOWNLOADED", "User downloaded the demo app file")
-    content = "WHBA Dating Demo App\n\nThis is a simulated app installation file. No actual software is installed."
+    content = "WHBA Dating Demo App\n\nThis is a simulated app installation file stay chill. No actual software is installed - 0xplt : Aditya Bhosale 👀."
     return send_file(io.BytesIO(content.encode()), mimetype='text/plain', as_attachment=True, download_name='WHBA_App_Demo.txt')
 
 # Admin routes (unchanged)
