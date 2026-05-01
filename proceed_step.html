@@ -1,0 +1,53 @@
+<!-- templates/proceed_step.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Step - WHBA Dating</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .verify-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            max-width: 500px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="verify-card">
+        <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+        <h3>Verification Complete!</h3>
+        <p>You have successfully completed the verification process.</p>
+        <div class="alert alert-info">
+            <strong>Contact Information:</strong><br>
+            Email: verified_contact@whba.com<br>
+            Phone: +91 98765 43210
+        </div>
+        <p class="text-muted small">This is a simulated contact for demonstration purposes.</p>
+        <button class="btn btn-primary" onclick="window.close()">Close</button>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script>
+        // Log the page view
+        fetch('/api/log_scenario_action', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                action: 'PROCEED_STEP_COMPLETED',
+                details: 'User completed the link proceed scenario'
+            })
+        }).catch(e => console.error(e));
+    </script>
+</body>
+</html>

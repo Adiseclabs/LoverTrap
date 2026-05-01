@@ -1,0 +1,184 @@
+<!-- templates/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - BATR Dating From Aditya Bhosale</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #f4f6f9;
+        }
+        .sidebar {
+            background: #2c3e50;
+            min-height: 100vh;
+            padding: 20px 0;
+        }
+        .sidebar .nav-link {
+            color: white;
+            padding: 12px 20px;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background: #34495e;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .stats-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .action-badge {
+            font-size: 0.8rem;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <h4 class="text-white text-center mb-4">BATR Admin</h4>
+                <div class="nav flex-column">
+                    <a href="#" class="nav-link active">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </a>
+                    <a href="/admin/logout" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>Interaction Analytics Dashboard</h2>
+                    <button class="btn btn-danger" onclick="clearAllLogs()">
+                        <i class="fas fa-trash"></i> Clear All Logs
+                    </button>
+                </div>
+                
+                <!-- Stats Cards -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <h5>Total Interactions</h5>
+                            <h2>{{ actions|length }}</h2>
+                            <small class="text-muted">All recorded user actions</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <h5>Unique IPs</h5>
+                            <h2>{{ ip_stats|length }}</h2>
+                            <small class="text-muted">Distinct visitors</small>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <h5>Get Contact Clicks</h5>
+                            <h2>{{ actions|selectattr('action_type', 'equalto', 'GET_CONTACT_INITIATED')|list|length }}</h2>
+                            <small class="text-muted">Contact requests initiated</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- IP Statistics -->
+                <div class="stats-card mb-4">
+                    <h5>IP Activity Summary</h5>
+                    <div class="table-responsive">
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>IP Address</th>
+                                    <th>Action Count</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for ip, count in ip_stats %}
+                                <tr>
+                                    <td>{{ ip }}</td>
+                                    <td>{{ count }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Detailed Logs Table -->
+                <div class="table-container">
+                    <h5>Detailed Interaction Logs</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>IP Address</th>
+                                    <th>Action Type</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for action in actions %}
+                                <tr>
+                                    <td>{{ action.timestamp }}</td>
+                                    <td><code>{{ action.ip_address }}</code></td>
+                                    <td>
+                                        <span class="badge {% if 'GET_CONTACT' in action.action_type %}bg-primary{% elif 'COMPLETED' in action.action_type %}bg-success{% elif 'PANIC' in action.action_type %}bg-danger{% else %}bg-secondary{% endif %}">
+                                            {{ action.action_type }}
+                                        </span>
+                                    </td>
+                                    <td><small>{{ action.details or '-' }}</small></td>
+                                </tr>
+                                {% else %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No logs recorded yet.</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        async function clearAllLogs() {
+            if(confirm('⚠️ WARNING: This will delete ALL interaction logs. This action cannot be undone. Continue?')) {
+                try {
+                    const response = await fetch('/admin/clear_logs', {
+                        method: 'POST',
+                        headers: {'Content-Type': 'application/json'}
+                    });
+                    const data = await response.json();
+                    if(data.status === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Error clearing logs: ' + data.message);
+                    }
+                } catch(e) {
+                    alert('Error: ' + e.message);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
