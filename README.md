@@ -20,13 +20,15 @@
 
 ## How It Works
 
-When a user clicks **"Get Contact"** on the fake dating interface, the system randomly triggers one of three simulated attack scenarios:
+When a user clicks **"Get Contact"** on the fake dating interface, the system randomly triggers one of five simulated attack scenarios:
 
 | Scenario | Description |
 |---|---|
 | ⚠️ Fake Warning Message | A simulated police fine or legal alert notification |
 | 📲 Fake App Download | A prompt mimicking a suspicious app installation screen |
 | 💻 System Command Trick | A social engineering prompt replicating Win+R / Win+C style attacks |
+| ✈️ Telegram Phish | A fake "private album" link that redirects users disguised as a Telegram invite |
+| 🧩 Extension Install | A drive-by download simulation requiring a fake "SecureViewer" privacy plugin |
 
 All scenarios are designed to replicate techniques used in real-world attacks — presented safely for analysis and learning.
 
@@ -97,12 +99,11 @@ lovetrap/
 ├── app.py                  # Flask application and routing
 ├── templates/
 │   ├── index.html          # Fake dating platform frontend
-│   └── admin.html          # Admin analytics dashboard
-├── static/
-│   ├── css/
-│   └── js/
-├── database.db             # SQLite interaction logs
+│   └── admin_dashboard.html# Admin analytics dashboard
+├── static/                 # Static files (images, css, js)
+├── whba_dating.db          # SQLite interaction logs (auto-generated)
 ├── requirements.txt
+├── .gitignore              # Ignores sensitive db files
 └── README.md
 ```
 

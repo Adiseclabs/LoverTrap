@@ -64,10 +64,13 @@ PROFILES = [
      "image": "/static/images/girl7.jpg"},
     {"id": 8, "name": "Aditi Kulkarni", "age": 30, "city": "Hyderabad", "occupation": "Data Scientist", 
      "bio": "Biryani connoisseur, classical dancer, and believer in strong chai conversations.", 
-     "image": "/static/images/girl8.jpg"}
+     "image": "/static/images/girl8.jpg"},
+    {"id": 9, "name": "Simran Kaur", "age": 27, "city": "Chandigarh", "occupation": "Event Planner", 
+     "bio": "Loves organizing big fat Indian weddings, travelling, and trying out new street food.", 
+     "image": "/static/images/girl9.jpg"}
 ]
 
-SCENARIOS = ["WIN_KEYS", "LINK_PROCEED", "INSTALL_APP", "POLICE_PANIC"]
+SCENARIOS = ["WIN_KEYS", "LINK_PROCEED", "INSTALL_APP", "POLICE_PANIC", "TELEGRAM_PHISH", "EXTENSION_INSTALL"]
 
 def admin_required(f):
     @wraps(f)
