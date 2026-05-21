@@ -70,7 +70,7 @@ PROFILES = [
      "image": "/static/images/girl9.jpg"}
 ]
 
-SCENARIOS = ["WIN_KEYS", "LINK_PROCEED", "INSTALL_APP", "POLICE_PANIC", "TELEGRAM_PHISH", "EXTENSION_INSTALL"]
+SCENARIOS = ["WIN_KEYS", "LINK_PROCEED", "INSTALL_APP", "POLICE_PANIC", "TELEGRAM_PHISH", "EXTENSION_INSTALL", "QUISHING"]
 
 def admin_required(f):
     @wraps(f)
@@ -82,13 +82,17 @@ def admin_required(f):
 
 @app.route('/')
 def index():
-    return render_template('index.html', profiles=PROFILES)
+    return render_template('index.html', profiles=PROFILES, scenarios=SCENARIOS)
 
 @app.route('/api/get_scenario', methods=['POST'])
 def get_scenario():
     profile_id = request.json.get('profile_id', 0)
     profile_name = next((p['name'] for p in PROFILES if p['id'] == profile_id), "Unknown")
-    scenario = random.choice(SCENARIOS)
+    
+    scenario = request.json.get('scenario')
+    if not scenario or scenario not in SCENARIOS:
+        scenario = random.choice(SCENARIOS)
+        
     log_action("GET_CONTACT_INITIATED", f"Profile: {profile_name} (ID: {profile_id}), Scenario: {scenario}")
     return jsonify({'scenario': scenario, 'profile_id': profile_id, 'profile_name': profile_name})
 
