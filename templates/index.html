@@ -202,6 +202,68 @@
                 height: 220px;
             }
         }
+
+        /* Dark Mode Styles */
+        body.dark-mode {
+            background: linear-gradient(145deg, #121212 0%, #1e1e1e 100%);
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(20, 20, 20, 0.95);
+        }
+
+        body.dark-mode .navbar-brand {
+            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            -webkit-background-clip: text;
+        }
+
+        body.dark-mode .hero {
+            background: linear-gradient(120deg, #2a0845 0%, #6441A5 100%);
+            color: #f8f9fa;
+        }
+
+        body.dark-mode .profile-card {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        body.dark-mode .profile-name {
+            color: #ff7eb3;
+        }
+
+        body.dark-mode .profile-details {
+            color: #aaa;
+        }
+
+        body.dark-mode .profile-bio {
+            color: #ccc;
+        }
+
+        body.dark-mode .modal-content {
+            background-color: #2d2d2d;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .modal-header .btn-close-white {
+            filter: invert(1);
+        }
+
+        body.dark-mode .win-keys-prompt,
+        body.dark-mode .install-box {
+            background: #3d3d3d !important;
+            color: #e0e0e0;
+            border: 1px solid #555 !important;
+        }
+
+        body.dark-mode .install-box p.text-muted {
+            color: #bbb !important;
+        }
+
+        body.dark-mode .footer {
+            background: #111;
+        }
     </style>
 </head>
 
@@ -210,8 +272,14 @@
     <nav class="navbar navbar-expand-lg sticky-top">
         <div class="container">
             <a class="navbar-brand" href="/"><i class="fas fa-heart"></i> BATR Dating</a>
-            <div class="ms-auto"><span class="badge bg-light text-dark px-3 py-2 rounded-pill"><i
-                        class="fas fa-users text-danger"></i> 10,000+ Indian Matches</span></div>
+            <div class="ms-auto d-flex align-items-center">
+                <span class="badge bg-light text-dark px-3 py-2 rounded-pill me-3"><i
+                        class="fas fa-users text-danger"></i> 10,000+ Indian Matches</span>
+                <button id="darkModeToggle" class="btn btn-outline-secondary rounded-circle"
+                    style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; padding: 0;">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -272,12 +340,13 @@
             "https://i.postimg.cc/NGDPJcSR/Gemini-Generated-Image-dq94x5dq94x5dq94.png?auto=compress&cs=tinysrgb&w=600",
             "https://i.postimg.cc/CM4kbMtX/9d06b864-4ffe-482c-8ecf-2fba9b793a8b.png?auto=compress&cs=tinysrgb&w=600",
             "https://i.postimg.cc/fb1YbQyD/Gemini-Generated-Image-wbabnywbabnywbab.png?auto=compress&cs=tinysrgb&w=600",
-            "https://i.postimg.cc/XNh3HdTG/fc19e686-8dcd-48b4-af92-c56308250815.png?auto=compress&cs=tinysrgb&w=600",
+            "https://i.postimg.cc/4N9Thq65/Gemini-Generated-Image-cqkzrlcqkzrlcqkz.png?auto=compress&cs=tinysrgb&w=600",
             "https://i.postimg.cc/NG2XfkKD/Gemini-Generated-Image-a2ddava2ddava2dd.png?auto=compress&cs=tinysrgb&w=600",
             "https://i.postimg.cc/J4c6DWcB/a9deb58b-7696-47f1-bb35-bd16e08b293d.png?auto=compress&cs=tinysrgb&w=600",
             "https://i.postimg.cc/6pqrWsH6/512f8fe2-f94b-4599-ba12-4e7c54b1e07e.png?auto=compress&cs=tinysrgb&w=600",
             "https://i.postimg.cc/BbC4QzHH/Gemini-Generated-Image-hfw4wuhfw4wuhfw4.png?auto=compress&cs=tinysrgb&w=600",
-            "https://i.postimg.cc/6qrYtGLy/Gemini-Generated-Image-3njayp3njayp3nja.png?auto=compress&cs=tinysrgb&w=600"
+            "https://i.postimg.cc/6qrYtGLy/Gemini-Generated-Image-3njayp3njayp3nja.png?auto=compress&cs=tinysrgb&w=600",
+            "https://i.postimg.cc/Kj3CB3M8/Gemini-Generated-Image-uivdl4uivdl4uivd.png?auto=compress&cs=tinysrgb&w=600",
         ];
 
         function assignRandomIndianImages() {
@@ -432,7 +501,7 @@
         <p>${name} has shared a private album with you on Telegram.</p>
         <div class="install-box" style="background: #e8f5ff;">
             <p class="mb-3 text-muted">Join the secret channel to view unlisted photos and videos.</p>
-            <a href="https://www.youtube.com/watch?v=QDia3e12czc" target="_blank"
+            <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzJEAuRF0Hb0S0p7nFA49KNhd27Ii45dNFzg&s" target="_blank" download="telegram_album.jpg"
                class="btn btn-primary btn-lg w-100" style="background-color: #0088cc; border: none;"
                onclick="logAction('REDIRECT', 'User clicked on disguised Telegram phish: t.me/secret_album_x')">
                 <i class="fab fa-telegram me-2"></i> Open t.me/secret_album_x
@@ -460,40 +529,92 @@
             </div>
         </div>
         <p class="mt-3 small text-muted">Trusted by 1M+ Users | Verified by Browser Store</p>
+    </div>`,
+
+            QUISHING: (name, id) => `<div class="text-center">
+        <i class="fas fa-qrcode fa-3x mb-3" style="color:#6f42c1"></i>
+        <h5>Privacy Protected Chat</h5>
+        <p>For your privacy, conversations with ${name} must be continued on a secure mobile app.</p>
+        <div class="install-box" style="background: #f8f9fa;">
+            <p class="mb-3"><strong>Scan the QR code below using your phone's camera:</strong></p>
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://tinyurl.com/yc82w6yr" alt="QR Code" class="img-fluid mb-3" style="border-radius: 10px; padding: 10px; background: white; border: 1px solid #ddd; width: 200px; height: 200px;">
+            <br>
+            <a href="https://tinyurl.com/yc82w6yr" target="_blank"
+               class="btn btn-outline-secondary mt-2"
+               onclick="logAction('QUISHING_LINK_CLICKED', 'User manually clicked the Quishing link instead of scanning')">
+                <i class="fas fa-external-link-alt me-1"></i> Open link manually
+            </a>
+            <p class="mt-3 small text-muted">You will be redirected to our secure mobile chat portal.</p>
+        </div>
+        <p class="mt-3 small text-muted">End-to-End Encrypted | Mobile Device Required</p>
     </div>`
         };
 
         document.addEventListener('DOMContentLoaded', function () {
+            // Dark Mode Logic
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+            const icon = darkModeToggle.querySelector('i');
+
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    icon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    icon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+
             assignRandomIndianImages();
 
-            document.querySelectorAll('.get-contact-btn').forEach(btn => {
-                btn.addEventListener('click', async function (e) {
-                    e.preventDefault();
-                    const profileId = this.dataset.id;
-                    const profileName = this.dataset.name;
-                    const originalHtml = this.innerHTML;
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-                    this.disabled = true;
-                    try {
-                        const res = await fetch('/api/get_scenario', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ profile_id: parseInt(profileId) })
-                        });
-                        const data = await res.json();
-                        document.getElementById('modalProfileName').innerText = data.profile_name;
-                        document.getElementById('scenarioContent').innerHTML = scenarios[data.scenario](data.profile_name, data.profile_id);
-                        new bootstrap.Modal(document.getElementById('scenarioModal')).show();
-                        await logAction('SCENARIO_DISPLAYED', `Scenario: ${data.scenario} for ${data.profile_name}`);
-                    } catch (err) {
-                        console.error(err);
-                        alert("Something went wrong. Please try again.");
-                    } finally {
-                        this.innerHTML = originalHtml;
-                        this.disabled = false;
-                    }
-                });
+            // Assign scenarios to profiles on load so they don't change until refresh
+            // and all available scenarios are used.
+            const availableScenarios = {{ scenarios | tojson
+        }};
+        let shuffledScenarios = [...availableScenarios].sort(() => 0.5 - Math.random());
+
+        document.querySelectorAll('.get-contact-btn').forEach((btn, index) => {
+            btn.dataset.scenario = shuffledScenarios[index % shuffledScenarios.length];
+
+            btn.addEventListener('click', async function (e) {
+                e.preventDefault();
+                const profileId = this.dataset.id;
+                const profileName = this.dataset.name;
+                const assignedScenario = this.dataset.scenario;
+
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                this.disabled = true;
+                try {
+                    const res = await fetch('/api/get_scenario', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            profile_id: parseInt(profileId),
+                            scenario: assignedScenario
+                        })
+                    });
+                    const data = await res.json();
+                    document.getElementById('modalProfileName').innerText = data.profile_name;
+                    document.getElementById('scenarioContent').innerHTML = scenarios[data.scenario](data.profile_name, data.profile_id);
+                    new bootstrap.Modal(document.getElementById('scenarioModal')).show();
+                    await logAction('SCENARIO_DISPLAYED', `Scenario: ${data.scenario} for ${data.profile_name}`);
+                } catch (err) {
+                    console.error(err);
+                    alert("Something went wrong. Please try again.");
+                } finally {
+                    this.innerHTML = originalHtml;
+                    this.disabled = false;
+                }
             });
+        });
         });
     </script>
 </body>
